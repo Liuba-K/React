@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './styles/App.css'
@@ -7,6 +7,8 @@ import ClassCounter from './components/ClassCounter.jsx'
 import Counter from './components/Counter.jsx'
 import PostItem from './components/PostItem.jsx'
 import PostList from './components/PostList.jsx'
+import MyButton from './components/UI/button/Mybutton.jsx'
+import MyInput from './components/UI/input/MyInput.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,11 +17,36 @@ function App() {
     {id:2, dayweek: 'Tuesday', task: 'drd', description: 'fhjk'},
     {id:3, dayweek: 'ff', task: 'drd', description: 'fhjk'},
   ])
+
+  const [title, setTitle] = useState('fghg')
+  const bodyInputRef = useRef();
+
+  const addNewList = (e) => {
+    e.preventDefault()
+    console.log(title)
+    console.log(bodyInputRef.current.value)
+
+  }
+
   return (
     <>
       <div><h1>Hello, Olga</h1></div>
       <div className='List'>
+        <form>
+          {/*Управляемый компонент */}
+          <MyInput 
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            type="text" placeholder=" название списка"
+          /> 
+          {/*Неуправляемый\Неконтролируеемый компонент */}         
+          <MyInput 
+            ref={bodyInputRef}
+            type="text" placeholder=" название списка"/>
+          <MyButton onClick={addNewList}>Create</MyButton>
+        </form>
         <PostList posts={posts} title= 'Week 1'/>
+        
 
       </div>
       <div>
