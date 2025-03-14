@@ -18,14 +18,19 @@ function App() {
     {id:3, dayweek: 'ff', task: 'drd', description: 'fhjk'},
   ])
 
-  const [title, setTitle] = useState('fghg')
-  const bodyInputRef = useRef();
+  const [task, setTask] = useState('fghg')
+  const [body, setBody] = useState('fghg')
 
   const addNewList = (e) => {
     e.preventDefault()
-    console.log(title)
-    console.log(bodyInputRef.current.value)
-
+    const newList = {
+      id: Date.now(),
+      task,
+      body
+    }    
+    setPosts([...posts, newList])
+    setTask()
+    setBody()
   }
 
   return (
@@ -35,13 +40,14 @@ function App() {
         <form>
           {/*Управляемый компонент */}
           <MyInput 
-            value={title}
-            onChange={e => setTitle(e.target.value)}
+            value={task}
+            onChange={e => setTask(e.target.value)}
             type="text" placeholder=" название списка"
           /> 
-          {/*Неуправляемый\Неконтролируеемый компонент */}         
+                 
           <MyInput 
-            ref={bodyInputRef}
+            value={body}
+            onChange={e => setBody(e.target.value)}
             type="text" placeholder=" название списка"/>
           <MyButton onClick={addNewList}>Create</MyButton>
         </form>

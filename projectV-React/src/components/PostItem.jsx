@@ -7,7 +7,7 @@ const PostItem = (props) => {
             <div className="post__content">
                 <strong> {props.post.dayweek}</strong>
                 <div>
-                    <h3>{props.post.id}. {props.post.task}</h3>
+                    <h3>{props.number}. {props.post.task}</h3>
                     <p>{props.post.description}</p>
 
                 </div>
