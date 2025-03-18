@@ -5,10 +5,10 @@ import './styles/App.css'
 
 import ClassCounter from './components/ClassCounter.jsx'
 import Counter from './components/Counter.jsx'
-import PostItem from './components/PostItem.jsx'
 import PostList from './components/PostList.jsx'
 import MyButton from './components/UI/button/Mybutton.jsx'
 import MyInput from './components/UI/input/MyInput.jsx'
+import PostForm from './components/PostForm.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,40 +18,20 @@ function App() {
     {id:3, dayweek: 'ff', task: 'drd', description: 'fhjk'},
   ])
 
-  const [task, setTask] = useState('fghg')
-  const [body, setBody] = useState('fghg')
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost])
+  }
 
-  const addNewList = (e) => {
-    e.preventDefault()
-    const newList = {
-      id: Date.now(),
-      task,
-      body
-    }    
-    setPosts([...posts, newList])
-    setTask()
-    setBody()
+  const removePost = (post) => {
+    setPosts(posts.filter(p => p.id !== post.id))
   }
 
   return (
     <>
       <div><h1>Hello, Olga</h1></div>
       <div className='List'>
-        <form>
-          {/*Управляемый компонент */}
-          <MyInput 
-            value={task}
-            onChange={e => setTask(e.target.value)}
-            type="text" placeholder=" название списка"
-          /> 
-                 
-          <MyInput 
-            value={body}
-            onChange={e => setBody(e.target.value)}
-            type="text" placeholder=" название списка"/>
-          <MyButton onClick={addNewList}>Create</MyButton>
-        </form>
-        <PostList posts={posts} title= 'Week 1'/>
+        <PostForm  create={createPost}/>
+        <PostList remove={removePost} posts={posts} title= 'Week 1'/>
         
 
       </div>
