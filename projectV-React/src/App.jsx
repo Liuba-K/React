@@ -31,9 +31,12 @@ function App() {
       <div><h1>Hello, Olga</h1></div>
       <div className='List'>
         <PostForm  create={createPost}/>
-        <PostList remove={removePost} posts={posts} title= 'Week 1'/>
-        
-
+        {posts.length 
+          ? <PostList remove={removePost} posts={posts} title= 'Week 1'/>
+          : <h1 style={{textAlign: 'center'}}>
+              Sorry, but posts were not found.
+            </h1>
+        }
       </div>
       <div>
         <a href="https://vite.dev" target="_blank">
