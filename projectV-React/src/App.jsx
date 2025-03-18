@@ -9,6 +9,7 @@ import PostList from './components/PostList.jsx'
 import MyButton from './components/UI/button/Mybutton.jsx'
 import MyInput from './components/UI/input/MyInput.jsx'
 import PostForm from './components/PostForm.jsx'
+import MySelect from './components/UI/select/MySelect.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,8 @@ function App() {
     {id:3, dayweek: 'ff', task: 'drd', description: 'fhjk'},
   ])
 
+  const [selectedSort,setSelectedSort] = useState()
+
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
   }
@@ -26,11 +29,29 @@ function App() {
     setPosts(posts.filter(p => p.id !== post.id))
   }
 
+  const sortPosts = (sort) => {
+    setSelectedSort(sort);
+    setPosts([...posts].sort((a,b) => a[sort].localeCompare(b[sort])))
+
+  }
+
   return (
     <>
       <div><h1>Hello, Olga</h1></div>
       <div className='List'>
         <PostForm  create={createPost}/>
+        <hr style={{margin: '15px 0'}}/>
+        <div>
+          <MySelect
+            value={selectedSort}
+            onChange={sortPosts}
+            defaultValue="Sorting"
+            options={[
+              {value: 'task', name: 'by task'},
+              {value: 'description', name: 'by name'},
+            ]}
+          />
+        </div>
         {posts.length 
           ? <PostList remove={removePost} posts={posts} title= 'Week 1'/>
           : <h1 style={{textAlign: 'center'}}>
