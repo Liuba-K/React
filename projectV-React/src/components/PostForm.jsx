@@ -4,14 +4,15 @@ import MyButton from './UI/button/Mybutton';
 import MyInput from './UI/input/MyInput';
 
 const PostForm = ({create}) => {
-    const [post, setPost] = useState({task:'', body:''})
+    const [post, setPost] = useState({task:'', description:''})
+    
     const addNewList = (e) => {
         e.preventDefault()
         const newPost = {
             ...post, id: Date.now()
         }  
         create(newPost)
-        newList({task: '', body: ''})
+        setPost({task: '', description: ''})
       }
     return (
         <form>
@@ -20,13 +21,13 @@ const PostForm = ({create}) => {
             value={post.task}
             onChange={e => setPost({...post, task: e.target.value})}
             type="text" 
-            placeholder=" название списка"
+            placeholder="Task"
           /> 
                  
           <MyInput 
-            value={post.body}
-            onChange={e => setPost({...post, body: e.target.value})}
-            type="text" placeholder=" название списка"/>
+            value={post.description}
+            onChange={e => setPost({...post, description: e.target.value})}
+            type="text" placeholder="Description"/>
           <MyButton onClick={addNewList}>Create</MyButton>
         </form>
 
