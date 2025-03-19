@@ -10,6 +10,8 @@ import PostList from './components/PostList.jsx'
 import PostForm from './components/PostForm.jsx'
 import PostFilter from './components/PostFilter.jsx'
 
+import MyModal from './components/UI/MyModal/myModal.jsx'
+
 function App() {
   const [count, setCount] = useState(0)
   const [posts, setPosts] = useState([
@@ -45,7 +47,10 @@ function App() {
     <>
       <div><h1>Hello, Olga</h1></div>
       <div className='List'>
-        <PostForm  create={createPost}/>
+        <MyModal visible={true}>
+          <PostForm  create={createPost}/>
+        </MyModal>
+        
         <hr style={{margin: '15px 0'}}/>
         <PostFilter 
           filter= {filter}
