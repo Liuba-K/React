@@ -9,6 +9,7 @@ import Counter from './components/Counter.jsx'
 import PostList from './components/PostList.jsx'
 import PostForm from './components/PostForm.jsx'
 import PostFilter from './components/PostFilter.jsx'
+import MyButton from './components/UI/button/Mybutton.jsx'
 
 import MyModal from './components/UI/MyModal/myModal.jsx'
 
@@ -21,6 +22,7 @@ function App() {
   ])
 
   const [filter,setFilter] = useState({sort: '', query: ''})
+  const [modal, setModal] = useState(false);
 
   const sortedPost = useMemo(() => {
     console.log('sorting function performed')
@@ -37,6 +39,7 @@ function App() {
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
+    setModal(false)
   }
 
   const removePost = (post) => {
@@ -47,7 +50,10 @@ function App() {
     <>
       <div><h1>Hello, Olga</h1></div>
       <div className='List'>
-        <MyModal visible={true}>
+        <MyButton onClick={() => setModal(true)}>
+          Created Task
+        </MyButton>
+        <MyModal visible={modal} setVisible={setModal}>
           <PostForm  create={createPost}/>
         </MyModal>
         
