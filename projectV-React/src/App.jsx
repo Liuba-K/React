@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './styles/App.css';
@@ -13,6 +13,10 @@ import MyButton from './components/UI/button/Mybutton.jsx';
 
 import MyModal from './components/UI/MyModal/myModal.jsx';
 import { usePosts } from './hooks/usePosts.js';
+import PostService from './API/PostService.js';
+import { useFetching } from './hooks/useFetching.js';
+import Loader from './components/UI/Loader/Loader.jsx';
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,11 +24,21 @@ function App() {
   const [filter,setFilter] = useState({sort: '', query: ''})
   const [modal, setModal] = useState(false);
   const sortedAndSearchchedPost = usePosts(posts, filter.sort, filter.query);
-  
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const posts = await PostService.getAll();
+    setPosts(posts)
+  })
+
+  useEffect(() => {
+    fetchPosts() 
+  },[])
+
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
     setModal(false)
   }
+
+
 
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id !== post.id))
@@ -34,6 +48,7 @@ function App() {
     <>
       <div><h1>Hello, Olga</h1></div>
       <div className='List'>
+        {/* <button onClick={fetchPosts}>GET POSTS</button> */}
         <MyButton onClick={() => setModal(true)}>
           Created Task
         </MyButton>
@@ -46,8 +61,15 @@ function App() {
           filter= {filter}
           setFilter={setFilter}
         />
-        <PostList remove={removePost} 
-            posts={sortedAndSearchchedPost} title= 'Week 1'/>
+        {postError &&
+          <h1>Error</h1>
+        }
+        {isPostsLoading
+          ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader /></div>
+          : <PostList remove={removePost} 
+          posts={sortedAndSearchchedPost} title= 'Week 1'/>
+        }
+        
       </div>
 
       <div>
