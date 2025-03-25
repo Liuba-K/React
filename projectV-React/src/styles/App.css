@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  align-items: center;
+  
 }
 
 .post {
@@ -59,4 +61,18 @@
 .page__current {
   border: 2px solid orange;
   font-weight: bold;
+}
+
+.navbar {
+  height: 50px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  background: lightblue;
+
+}
+
+.navbar__links {
+  margin-right: auto;
 }
