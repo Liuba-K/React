@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'diary',
-    'users',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'private_diary',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'enrb14', #other password
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
