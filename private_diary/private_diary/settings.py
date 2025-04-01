@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'private_diary',
         'USER': 'root',
-        'PASSWORD': 'enrb14', #other password
+        'PASSWORD': 'root', #other password
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
